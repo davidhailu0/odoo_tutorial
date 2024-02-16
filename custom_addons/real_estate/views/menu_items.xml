@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem name="Property Ads" id="property_ads_id">
+        <menuitem name="Property" id="property_sub_id">
+            <menuitem name="Ads" id="property_ads_id_last" action="action_property"/>
+        </menuitem>
+        <menuitem name="Setting" id="property_setting_id">
+            <menuitem name="Property Types" id="property_ads_id_setting_last" action="action_property_type"/>
+            <menuitem name="Property Tags" id="property_tags_id_setting_last" action="action_property_tag"/>
+        </menuitem>
+    </menuitem>
+</odoo>
