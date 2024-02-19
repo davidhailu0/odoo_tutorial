@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
+        <record id="action_property_offer_view" model="ir.actions.act_window">
+            <field name="name">Property_Offer</field>
+            <field name="res_model">property.offer</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[("property_id","=",active_id)]</field>
+        </record>
         <record id="property_tree_view" model="ir.ui.view">
             <field name="name">estate.property.form</field>
             <field name="model">property.estate</field>
@@ -16,14 +22,46 @@
                 </tree>
             </field>
         </record>
+        <record id="property_search_view" model="ir.ui.view">
+            <field name="name">estate.property.search</field>
+            <field name="model">property.estate</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="type_id"/>
+                    <field name="postcode"/>
+                    <field name="selling_price"/>
+                    <filter string="Accepted" name="new_state" domain="[('status','=','accept')]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Status" name="group_by_status" context="{'group_by':'status'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="status" icon="fa-filter" groupby="group_by_status" limit="0"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
         <record id="property_form_view" model="ir.ui.view">
             <field name="name">estate.property.form</field>
             <field name="model">property.estate</field>
             <field name="arch" type="xml">
                 <form>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+<!--                            <button class="oe_stat_button" name="%(real_estate.action_property_offer_view)d" type="action">-->
+                            <button class="oe_stat_button" type="object" name="action_property_offer" icon="fa-handshake-o">
+                                <field name="offer_count" string="offers" widget="statinfo"/>
+                            </button>
+                        </div>
+                    <header>
+                        <button name="accept_offer" type="object" string="Accept" class="btn btn-primary"/>
+                        <button name="refuse_offer" type="object" string="Reject" class="btn btn-danger"/>
+                        <field name="status" widget="statusbar" statusbar_visible="accept,refuse"/>
+                    </header>
                     <group>
                         <field name="name"/>
-                        <field name="tag_ids" widget="many2many_tags"/>
+                        <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}"/>
                         <group>
                             <field name="type_id"/>
                             <field name="postcode"/>
@@ -43,19 +81,23 @@
                                     <field name="facade"/>
                                     <field name="garage"/>
                                     <field name="garden"/>
-                                    <field name="garden_area"/>
-                                    <field name="garden_orientation"/>
+                                    <field name="garden_area" attrs="{'invisible':[('garden','=',False)]}"/>
+                                    <field name="garden_orientation" attrs="{'invisible':[('garden','=',False)]}"/>
                                     <field name="total_area"/>
                                 </group>
                             </page>
                             <page string="Offers">
                                     <field name="offer_ids">
-                                        <tree editable="bottom">
+                                        <tree editable="bottom" decoration-success="status == 'accept'" decoration-danger="status == 'refuse'">
                                             <field name="price"/>
                                             <field name="partner_id"/>
+                                            <field name="creation_date"/>
                                             <field name="validity"/>
-                                            <field name="deadline"/>
-                                            <field name="status" nolabel="1"/>
+                                            <field name="deadline3"/>
+                                            <field name="price"/>
+                                            <field name="status" nolabel="0" readonly="1"/>
+                                            <button string="Accept" name="action_accept_offer" type="object" icon="fa-check"/>
+                                            <button string="Reject" name="action_refuse_offer" type="object" icon="fa-times"/>
                                         </tree>
                                     </field>
                             </page>
@@ -63,10 +105,12 @@
                                 <group>
                                     <field name="sales_id"/>
                                     <field name="buyer_id"/>
+                                    <field name="phone"/>
                                 </group>
                             </page>
                         </notebook>
                     </group>
+                    </sheet>
                 </form>
             </field>
         </record>

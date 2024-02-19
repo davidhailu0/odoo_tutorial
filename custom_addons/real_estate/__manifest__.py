@@ -15,7 +15,13 @@
         'views/property_view.xml',
         'views/property_type_view.xml',
         'views/property_tag.xml',
-        'views/menu_items.xml'
+        'views/property_offer_view.xml',
+        'views/menu_items.xml',
+        'data/property.type.csv'
+        # 'data/property_type.xml'
+    ],
+    'demo':[
+        'demo/property_tags.xml'
     ],
     'license': "LGPL-3",
     'web_icon': "real_estate/static/description/icon.png"

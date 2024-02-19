@@ -1,0 +1,16 @@
+<odoo>
+    <data noupdate="1">
+        <record id="property_type_house" model="property.estate">
+            <field name="name">House</field>
+        </record>
+        <record id="property_type_apartment" model="property.estate">
+            <field name="name">Apartment</field>
+        </record>
+        <record id="property_type_penthouse" model="property.estate">
+            <field name="name">Penthouse</field>
+        </record>
+        <record id="property_type_castle" model="property.estate">
+            <field name="name">Castle</field>
+        </record>
+    </data>
+</odoo>

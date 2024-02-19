@@ -7,6 +7,7 @@
         <menuitem name="Setting" id="property_setting_id">
             <menuitem name="Property Types" id="property_ads_id_setting_last" action="action_property_type"/>
             <menuitem name="Property Tags" id="property_tags_id_setting_last" action="action_property_tag"/>
+            <menuitem name="Property Offer" id="property_tags_id_offer_last" action="action_property_offer"/>
         </menuitem>
     </menuitem>
 </odoo>
